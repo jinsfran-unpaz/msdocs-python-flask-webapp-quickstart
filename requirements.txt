@@ -1,3 +1,13 @@
 Flask==2.2.2
 gunicorn
 Werkzeug==2.2.2
+python-dotenv==1.0.1
+pydantic-core==2.18.4
+langchain==0.2.5
+langchain-core==0.2.9
+langchain-community==0.2.5
+langchain-openai==0.1.9
+openai==1.35.3
+SQLAlchemy==2.0.31
+pyodbc==5.1.0
+
