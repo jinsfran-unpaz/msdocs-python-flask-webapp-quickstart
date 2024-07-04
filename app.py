@@ -39,7 +39,7 @@ final_prompt = ChatPromptTemplate.from_messages(
     [
         ("system",
          """
-         You are an agent designed to interact with a SQL database.
+         You are an agent designed to interact with a SQL database Northwind.
          Given an input question, create a syntactically correct {dialect} query to run, 
          then look at the results of the query and return the answer. 
          Unless the user specifies a specific number of examples they wish to obtain, 
@@ -94,15 +94,21 @@ def favicon():
 def hello():
     """ Route for the hello page."""    
     name = request.form.get('name')
-    resultado = sqldb_agent.invoke(final_prompt.format(
-        question=name,
-        dialect="SQL Server"
-        ))
+    try:
+        resultado = sqldb_agent.invoke(final_prompt.format(
+            question=name,
+            dialect="SQL Server"
+            ))
+    except Exception as e:
+        print(e)
+        resultado = "No lo sé, pero estoy aprendiendo"
+
     # resultado es un json que tiene input y output. output es el resultado de la query
     resultado = resultado['output']
 
     if name:
         print('Request for hello page received with name=%s', name)
+        print('Resultado: ', resultado)
         return render_template('hello.html', name = resultado)
     else:
         print('Request for hello page received with no name or blank name -- redirecting')
